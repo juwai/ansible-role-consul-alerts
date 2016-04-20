@@ -1,0 +1,38 @@
+---
+- get_url:
+    url: "{{ consul_alerts_url }}-linux-amd64.tar"
+    dest: /tmp/consul_alerts_{{ consul_alerts_version }}.tar
+    validate_certs: no
+    timeout: 60
+  when: ansible_userspace_bits == "64"
+
+- get_url:
+    url: "{{ consul_alerts_url }}-linux-386.tar"
+    dest: /tmp/consul_alerts_{{ consul_alerts_version }}.tar
+    validate_certs: no
+    timeout: 60
+  when: ansible_userspace_bits == "32"
+
+- name: create consul-alerts dir
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ consul_user }}"
+    group: "{{ consul_group }}"
+  with_items:
+    - "{{ consul_alerts_dir }}"
+    - "{{ consul_alerts_dir }}/bin"
+    - "{{ consul_alerts_log_dir }}"
+
+- name: unpack the consul-alerts archive
+  unarchive:
+    copy: no
+    src: "/tmp/consul_alerts_{{ consul_alerts_version }}.tar"
+    dest: "{{ consul_alerts_dir }}/bin"
+    creates: "{{ consul_alerts_dir }}/bin/consul-alerts"
+
+- name: make link to consul-alerts folder
+  file:
+    src: "{{ consul_alerts_dir }}"
+    dest: /opt/consul-alerts
+    state: link

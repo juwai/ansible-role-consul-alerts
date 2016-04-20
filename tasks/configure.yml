@@ -1,0 +1,19 @@
+---
+- name: make consul-alerts executable
+  file: path="{{ consul_alerts_dir }}/bin/consul-alerts" mode=755
+
+- name: make consul-alerts available on the path
+  alternatives:
+    name: consul-alerts
+    link: /usr/bin/consul-alerts
+    path: "{{ consul_alerts_dir }}/bin/consul-alerts"
+
+- name: install the supervisord config script
+  template:
+    src: supervisor.d_consul_alerts.conf.j2
+    dest: "{{ supervisord_config_dir }}/consul_alerts.conf"
+    owner: root
+    group: root
+    mode: 0644
+  when: consul_alerts_supervisor_enabled
+  notify: supervisord restart consul-alerts

@@ -1,0 +1,7 @@
+---
+- name: supervisord restart consul-alerts
+  supervisorctl:
+    name: 'consul_alerts:*'
+    state: restarted
+  when: consul_alerts_supervisor_enabled
+  ignore_errors: true

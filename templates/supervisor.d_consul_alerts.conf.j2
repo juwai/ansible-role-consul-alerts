@@ -1,0 +1,34 @@
+[group:consul_alerts]
+programs=consul_alerts_daemon,consul_watch
+
+[program:consul_alerts_daemon]
+command={{ consul_alerts_dir }}/bin/consul-alerts start --alert-addr={{ consul_alerts_bind_address }}:{{ consul_alerts_port }} --consul-dc={{ consul_datacenter }}
+user={{ consul_user }}
+group={{ consul_group }}
+autostart=true
+autorestart=true
+redirect_stdout=true
+redirect_stderr=true
+stdout_logfile={{ consul_alerts_log_dir }}/daemon.stdout.log
+stdout_logfile_maxbytes=20MB
+stdout_logfile_backups=10
+stderr_logfile={{ consul_alerts_log_dir }}/daemon.stderr.log
+stderr_logfile_maxbytes=20MB
+stderr_logfile_backups=10
+priority=995
+
+[program:consul_watch]
+command={{ consul_dir }}/bin/consul watch -type checks consul-alerts watch checks --alert-addr={{ consul_alerts_bind_address }}:{{ consul_alerts_port }}
+user={{ consul_user }}
+group={{ consul_group }}
+autostart=true
+autorestart=true
+redirect_stdout=true
+redirect_stderr=true
+stdout_logfile={{ consul_alerts_log_dir }}/watch.stdout.log
+stdout_logfile_maxbytes=20MB
+stdout_logfile_backups=10
+stderr_logfile={{ consul_alerts_log_dir }}/watch.stderr.log
+stderr_logfile_maxbytes=20MB
+stderr_logfile_backups=10
+priority=999

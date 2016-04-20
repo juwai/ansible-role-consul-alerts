@@ -1,0 +1,12 @@
+---
+consul_alerts: false
+consul_alerts_supervisor_enabled: true
+
+consul_alerts_version: 0.3.0
+consul_alerts_url: https://github.com/AcalephStorage/consul-alerts/releases/download/v{{ consul_alerts_version }}/consul-alerts-{{ consul_alerts_version }}
+
+consul_alerts_bind_address: '{{ consul_bind_address }}'
+consul_alerts_port: 8700
+
+consul_alerts_dir: '/home/{{ consul_user }}/consul_alerts_{{ consul_alerts_version }}'
+consul_alerts_log_dir: '{{ consul_alerts_dir }}/logs'
