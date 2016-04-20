@@ -1,31 +1,42 @@
-Role Name
-=========
+Ansible Role: Consul Alerts
+===========================
 
-A brief description of the role goes here.
+Install Consul Alerts on Amazon EC2 or CentOS server.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Written in Ansible 2.0.*
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Available variables are listed below, along with default values (see `defaults/main.yml`):
+
+### consul_alerts_port
+
+Port to bind to, default is 8700
+
+### consul_alerts_supervisor_enabled
+
+Use Supervisord for controlling Consul Alerts, default is true
+
+### consul_alerts_version
+
+Version of Consul Alerts to install, default is 0.3.0
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
++ `juwai.consul`
++ `juwai.supervisor`, when consul_alerts_supervisor_enabled == true
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+        - juwai.consul-alerts
 
 License
 -------
@@ -35,4 +46,4 @@ MIT
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This role was created in 2016 by [Juwai Limited](http://www.juwai.com).

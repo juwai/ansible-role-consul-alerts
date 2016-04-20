@@ -1,5 +1,4 @@
 ---
-consul_alerts: false
 consul_alerts_supervisor_enabled: true
 
 consul_alerts_version: 0.3.0
