@@ -16,4 +16,4 @@
     group: root
     mode: 0644
   when: consul_alerts_supervisor_enabled
-  notify: supervisord restart consul-alerts
+  notify: supervisord update consul-alerts
