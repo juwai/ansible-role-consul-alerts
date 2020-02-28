@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "centos65"
-  config.vm.box_url = "http://downloads.juwai.io/devops/boxes/centos65-x86-64.box"
+  config.vm.box_url = "http://downloads.juwai.xyz/devops/boxes/centos65-x86-64.box"
 
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
